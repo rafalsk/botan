@@ -223,7 +223,7 @@ size_t PKCS10_Request::path_limit() const
 /*
 * Return the X509v3 extensions
 */
-Extensions PKCS10_Request::extensions() const
+const Extensions& PKCS10_Request::extensions() const
    {
    return m_extensions;
    }

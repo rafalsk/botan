@@ -34,7 +34,7 @@ class BOTAN_PUBLIC_API(2,0) Invalid_Argument : public Exception
    {
    public:
       explicit Invalid_Argument(const std::string& msg) :
-         Exception("Invalid argument", msg) {}
+         Exception(msg) {}
 
       explicit Invalid_Argument(const std::string& msg, const std::string& where) :
          Exception("Invalid argument", msg + " in " + where) {}
@@ -189,6 +189,8 @@ struct BOTAN_PUBLIC_API(2,0) Decoding_Error : public Invalid_Argument
    {
    explicit Decoding_Error(const std::string& name) :
       Invalid_Argument("Decoding error: " + name) {}
+   explicit Decoding_Error(const std::string& name, const char* exception_message) :
+      Invalid_Argument("Decoding error: " + name + " failed with exception " + exception_message) {}
    };
 
 /**

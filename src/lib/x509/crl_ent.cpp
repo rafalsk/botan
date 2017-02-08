@@ -17,17 +17,14 @@ namespace Botan {
 /*
 * Create a CRL_Entry
 */
-CRL_Entry::CRL_Entry(bool t_on_unknown_crit) :
-   m_throw_on_unknown_critical(t_on_unknown_crit)
+CRL_Entry::CRL_Entry() : m_reason(UNSPECIFIED)
    {
-   m_reason = UNSPECIFIED;
    }
 
 /*
 * Create a CRL_Entry
 */
-CRL_Entry::CRL_Entry(const X509_Certificate& cert, CRL_Code why) :
-   m_throw_on_unknown_critical(false)
+CRL_Entry::CRL_Entry(const X509_Certificate& cert, CRL_Code why)
    {
    m_serial = cert.serial_number();
    m_time = X509_Time(std::chrono::system_clock::now());
@@ -88,7 +85,7 @@ void CRL_Entry::decode_from(BER_Decoder& source)
 
    if(entry.more_items())
       {
-      Extensions extensions(m_throw_on_unknown_critical);
+      Extensions extensions;
       entry.decode(extensions);
       Data_Store info;
       extensions.contents_to(info, info);

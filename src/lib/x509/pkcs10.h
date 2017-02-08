@@ -86,7 +86,7 @@ class BOTAN_PUBLIC_API(2,0) PKCS10_Request final : public X509_Object
       * Get the X509v3 extensions.
       * @return X509v3 extensions
       */
-      Extensions extensions() const;
+      const Extensions& extensions() const;
 
       /**
       * Create a PKCS#10 Request from a data source.

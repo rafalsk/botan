@@ -15,8 +15,8 @@ namespace Botan {
 /*
 * Load a X.509 CRL
 */
-X509_CRL::X509_CRL(DataSource& in, bool touc) :
-   X509_Object(in, "X509 CRL/CRL"), m_throw_on_unknown_critical(touc)
+X509_CRL::X509_CRL(DataSource& in) :
+   X509_Object(in, "X509 CRL/CRL")
    {
    do_decode();
    }
@@ -25,22 +25,22 @@ X509_CRL::X509_CRL(DataSource& in, bool touc) :
 /*
 * Load a X.509 CRL
 */
-X509_CRL::X509_CRL(const std::string& fsname, bool touc) :
-   X509_Object(fsname, "CRL/X509 CRL"), m_throw_on_unknown_critical(touc)
+X509_CRL::X509_CRL(const std::string& fsname) :
+   X509_Object(fsname, "CRL/X509 CRL")
    {
    do_decode();
    }
 #endif
 
-X509_CRL::X509_CRL(const std::vector<uint8_t>& in, bool touc) :
-   X509_Object(in, "CRL/X509 CRL"), m_throw_on_unknown_critical(touc)
+X509_CRL::X509_CRL(const std::vector<uint8_t>& in) :
+   X509_Object(in, "CRL/X509 CRL")
    {
    do_decode();
    }
 
 X509_CRL::X509_CRL(const X509_DN& issuer, const X509_Time& thisUpdate,
                    const X509_Time& nextUpdate, const std::vector<CRL_Entry>& revoked) :
-   X509_Object(), m_throw_on_unknown_critical(false), m_revoked(revoked)
+   X509_Object(), m_revoked(revoked)
    {
    m_info.add(issuer.contents());
    m_info.add("X509.CRL.start", thisUpdate.to_string());
@@ -121,7 +121,7 @@ void X509_CRL::force_decode()
 
       while(cert_list.more_items())
          {
-         CRL_Entry entry(m_throw_on_unknown_critical);
+         CRL_Entry entry;
          cert_list.decode(entry);
          m_revoked.push_back(entry);
          }
@@ -133,7 +133,7 @@ void X509_CRL::force_decode()
       {
       BER_Decoder crl_options(next.value);
 
-      Extensions extensions(m_throw_on_unknown_critical);
+      Extensions extensions;
 
       crl_options.decode(extensions).verify_end();
 

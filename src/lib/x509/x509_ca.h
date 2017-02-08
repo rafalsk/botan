@@ -116,13 +116,18 @@ class BOTAN_PUBLIC_API(2,0) X509_CA final
       X509_CA(const X509_CA&) = delete;
       X509_CA& operator=(const X509_CA&) = delete;
 
+      X509_CA(X509_CA&&) = default;
+      X509_CA& operator=(X509_CA&&) = default;
+
       ~X509_CA();
+
    private:
       X509_CRL make_crl(const std::vector<CRL_Entry>& entries,
                         uint32_t crl_number, uint32_t next_update,
                         RandomNumberGenerator& rng) const;
 
       AlgorithmIdentifier m_ca_sig_algo;
+      std::string m_hash_fn;
       X509_Certificate m_cert;
       std::unique_ptr<PK_Signer> m_signer;
    };

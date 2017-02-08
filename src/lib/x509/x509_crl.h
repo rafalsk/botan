@@ -77,30 +77,22 @@ class BOTAN_PUBLIC_API(2,0) X509_CRL final : public X509_Object
       /**
       * Construct a CRL from a data source.
       * @param source the data source providing the DER or PEM encoded CRL.
-      * @param throw_on_unknown_critical should we throw an exception
-      * if an unknown CRL extension marked as critical is encountered.
       */
-      X509_CRL(DataSource& source, bool throw_on_unknown_critical = false);
+      X509_CRL(DataSource& source);
 
 #if defined(BOTAN_TARGET_OS_HAS_FILESYSTEM)
       /**
       * Construct a CRL from a file containing the DER or PEM encoded CRL.
       * @param filename the name of the CRL file
-      * @param throw_on_unknown_critical should we throw an exception
-      * if an unknown CRL extension marked as critical is encountered.
       */
-      X509_CRL(const std::string& filename,
-               bool throw_on_unknown_critical = false);
+      X509_CRL(const std::string& filename);
 #endif
 
       /**
       * Construct a CRL from a binary vector
       * @param vec the binary (DER) representation of the CRL
-      * @param throw_on_unknown_critical should we throw an exception
-      * if an unknown CRL extension marked as critical is encountered.
       */
-      X509_CRL(const std::vector<uint8_t>& vec,
-               bool throw_on_unknown_critical = false);
+      X509_CRL(const std::vector<uint8_t>& vec);
 
       /**
       * Construct a CRL
@@ -115,7 +107,6 @@ class BOTAN_PUBLIC_API(2,0) X509_CRL final : public X509_Object
    private:
       void force_decode() override;
 
-      bool m_throw_on_unknown_critical;
       std::vector<CRL_Entry> m_revoked;
       Data_Store m_info;
    };

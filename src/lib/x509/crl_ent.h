@@ -66,7 +66,7 @@ class BOTAN_PUBLIC_API(2,0) CRL_Entry final : public ASN1_Object
       * @param throw_on_unknown_critical_extension should we throw an exception
       * if an unknown CRL extension marked as critical is encountered
       */
-      explicit CRL_Entry(bool throw_on_unknown_critical_extension = false);
+      explicit CRL_Entry();
 
       /**
       * Construct an CRL entry.
@@ -77,7 +77,6 @@ class BOTAN_PUBLIC_API(2,0) CRL_Entry final : public ASN1_Object
                 CRL_Code reason = UNSPECIFIED);
 
    private:
-      bool m_throw_on_unknown_critical;
       std::vector<uint8_t> m_serial;
       X509_Time m_time;
       CRL_Code m_reason;
